@@ -2,4 +2,27 @@
 \ProvidesPackage{cs-sense}[2017/03/13 Computer Science Sensible package]
 
 \renewcommand{\O}[1]{$\mathcal{O}(#1)$} % Big-O
-\newcommand{\abs}[1]{\mid #1 \mid} % Wrap argument in bars: |<arg>|
+
+% We use providecommand here because mathsense might have been
+% loaded, which also provides the command.
+\providecommand{\abs}[1]{\mid #1 \mid} % Wrap argument in bars: |<arg>|
+
+% Internal {{{
+\providecommand{\automath}[1]{%
+  % if in math mode, print as normal
+  % otherwise, wrap the argument in $$
+  \ifmmode#1\else$#1$\fi
+}
+% }}}
+
+% Asymptomic Bounds {{{
+% Big-O
+\renewcommand{\O}[1]{\automath{\mathcal{O}(#1)}}
+
+% Theta
+\newcommand{\T}[1]{\automath{\Theta(#1)}}
+
+% Ohm
+\newcommand{\Om}[1]{\automath{\Omega(#1)}}
+% }}}
+% vim: foldmethod=marker
